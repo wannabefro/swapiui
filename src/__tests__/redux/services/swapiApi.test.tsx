@@ -15,10 +15,10 @@ describe("swapiApi", () => {
     const { result } = await renderHook(() => useGetFilmsQuery(null), {
       wrapper,
     });
-    await waitFor(() => expect(result.current.isSuccess));
+    await waitFor(() => expect(result.current.isSuccess).toEqual(true));
     const { currentData: data } = result.current;
     expect(data).toBeDefined();
-    expect(data!.count).toBeGreaterThan(0);
+    expect(data!.length).toBeGreaterThan(0);
   });
 
   test("should fetch film by id", async () => {
@@ -28,7 +28,7 @@ describe("swapiApi", () => {
         wrapper,
       }
     );
-    await waitFor(() => expect(result.current.isSuccess));
+    await waitFor(() => expect(result.current.isSuccess).toEqual(true));
     const { currentData: data } = result.current;
     expect(data).toBeDefined();
     expect(data!.title).toBe("A New Hope");
@@ -41,10 +41,10 @@ describe("swapiApi", () => {
         wrapper,
       }
     );
-    await waitFor(() => expect(result.current.isSuccess));
+    await waitFor(() => expect(result.current.isSuccess).toEqual(true));
     const { currentData: data } = result.current;
     expect(data).toBeDefined();
-    expect(data!.results.length).toBeGreaterThan(0);
-    expect(data!.results[0].title).toContain("New");
+    expect(data!.length).toBeGreaterThan(0);
+    expect(data![0].title).toContain("New");
   });
 });

@@ -27,14 +27,20 @@ export const swapiApi = createApi({
     baseUrl: "https://swapi.dev/api/",
   }),
   endpoints: (builder) => ({
-    getFilms: builder.query<AllFilms, null>({
+    getFilms: builder.query<Film[], null>({
       query: () => "films",
+      transformResponse: (response: AllFilms) => {
+        return response.results;
+      },
     }),
     getFilmById: builder.query<Film, { id: string }>({
       query: ({ id }) => `films/${id}`,
     }),
-    getFilmsByTitle: builder.query<AllFilms, { title: string }>({
+    getFilmsByTitle: builder.query<Film[], { title: string }>({
       query: ({ title }) => `films?search=${title}`,
+      transformResponse: (response: AllFilms) => {
+        return response.results;
+      },
     }),
   }),
 });
