@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         starwars: "#FECB00",
+        starwarsBlue: "#4ee",
       },
       fontFamily: {
         dela: ['"Dela Gothic One"', "display"],

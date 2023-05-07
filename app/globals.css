@@ -4,26 +4,44 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer components {
+  .text-scroll-wrapper {
+    @apply max-h-screen flex justify-center overflow-hidden;
+    perspective: 1200px;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+  .text-scroll-content {
+    @apply text-starwars w-[80%] text-center text-xl md:text-3xl font-dela leading-10;
+    transform-origin: 50% 100%;
+    transform: translateY(0%) rotateX(20deg);
+  }
+
+  .scroll {
+    animation: scroll 60s linear;
+    animation-delay: 2s;
+  }
+
+  .search-input-wrapper {
+    @apply relative flex items-center gap-2 text-lg md:text-2xl border border-gray-300 rounded-lg p-2;
+  }
+  .search-input {
+    @apply w-full px-4 py-2 focus:outline-none border-none rounded-lg;
+  }
+
+  .suggestions-list {
+    @apply absolute w-full -mt-1 p-0 list-none md:text-lg bg-white border border-gray-300 z-10 rounded-b-lg invisible;
+  }
+
+  .skip-button {
+    @apply z-10 fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@keyframes scroll {
+  0% {
+    transform: translateY(0%) rotateX(20deg);
+  }
+  100% {
+    transform: translateY(-300%) rotateX(20deg);
+  }
 }

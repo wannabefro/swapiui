@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type Film = {
+export type Film = {
   title: string;
   episode_id: number;
   opening_crawl: string;
@@ -12,6 +12,7 @@ type Film = {
   starships: string[];
   vehicles: string[];
   species: string[];
+  url: string;
 };
 
 type AllFilms = {

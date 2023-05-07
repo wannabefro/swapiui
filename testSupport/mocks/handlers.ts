@@ -12,11 +12,16 @@ const A_NEW_HOPE = {
   starships: [],
   vehicles: [],
   satisfies: [],
+  url: "https://swapi.dev/api/films/1/",
 };
 
 const handlers = [
   rest.get("https://swapi.dev/api/films", (req, res, ctx) => {
-    if (req.params.search) {
+    if (req.url.searchParams.get("search")) {
+      if (req.url.searchParams.get("search") === "nope") {
+        return res(ctx.json({ count: 0, results: [] }));
+      }
+
       return res(
         ctx.json({
           count: 1,
@@ -37,6 +42,10 @@ const handlers = [
     );
   }),
   rest.get("https://swapi.dev/api/films/:id", (req, res, ctx) => {
+    if (req.params.id === "999") {
+      return res(ctx.status(404));
+    }
+
     return res(ctx.json(A_NEW_HOPE));
   }),
 ];

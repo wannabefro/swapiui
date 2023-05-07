@@ -1,5 +1,6 @@
 import { Providers } from "@/src/redux/provider";
 import "./globals.css";
+import { Stars } from "@/components/Stars";
 
 export const metadata = {
   title: "Star Wars Explorer",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="font-gothic">
+        <Stars />
         <Providers>{children}</Providers>
       </body>
     </html>
