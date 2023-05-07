@@ -5,6 +5,7 @@ import { TextScroll } from "@/components/TextScroll";
 import { useGetFilmByIdQuery } from "@/src/redux/services/swapiApi";
 import { notFound } from "next/navigation";
 import { FilmCard } from "@/components/FilmCard";
+import Link from "next/link";
 
 type FilmPageProps = {
   params: {

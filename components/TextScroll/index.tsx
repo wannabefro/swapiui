@@ -1,6 +1,7 @@
 import { Film } from "@/src/redux/services/swapiApi";
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
+import { useInView } from "react-intersection-observer";
 
 type TextScrollProps = {
   film?: Film;
@@ -9,34 +10,20 @@ type TextScrollProps = {
 
 const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
   const [isVisible, setIsVisible] = useState(true);
-  const lastContentRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { ref: lastContentRef, inView } = useInView({
+    threshold: 0.9,
+    delay: 100,
+  });
 
   useEffect(() => {
-    if (!lastContentRef.current) {
+    if (!inView) {
       return;
     }
 
-    const handleIntersect = (entries: IntersectionObserverEntry[]) => {
-      const [entry] = entries;
-      if (entry.isIntersecting) {
-        setIsVisible(false);
-        onScrollEnd?.();
-      }
-    };
-
-    const observer = new IntersectionObserver(handleIntersect, {
-      root: null,
-      rootMargin: "0px",
-      threshold: 1,
-    });
-    const target = lastContentRef.current;
-    observer.observe(target);
-
-    return () => {
-      observer.unobserve(target);
-    };
-  }, [lastContentRef, onScrollEnd]);
+    setIsVisible(false);
+    onScrollEnd?.();
+  }, [inView]);
 
   useEffect(() => {
     if (!scrollContainerRef.current) {
@@ -72,7 +59,7 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
         Skip
       </button>
       );
-      <div className="text-scroll-wrapper">
+      <div className="text-scroll-wrapper fade">
         <div
           ref={scrollContainerRef}
           className={classNames("text-scroll-content", { scroll: !!film })}
@@ -86,10 +73,10 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
                 Episode {film.episode_id}
               </h2>
               <h3 className="my-8 text-3xl md:text-5xl">{film.title}</h3>
-              <p className="whitespace-pre-line mx-4 font-gothic tracking-wider">
+              <p className="whitespace-pre-line mx-4 font-gothic md:tracking-wider">
                 {film.opening_crawl}
               </p>
-              <div ref={lastContentRef} className="mt-[90vh]" />
+              <div ref={lastContentRef} className="mt-[75vh]" />
             </div>
           )}
         </div>

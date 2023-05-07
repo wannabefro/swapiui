@@ -7,24 +7,21 @@
 @layer components {
   .text-scroll-wrapper {
     @apply max-h-screen flex justify-center overflow-hidden;
-    perspective: 1200px;
+    perspective: 400px;
   }
 
   .text-scroll-content {
     @apply text-starwars w-[80%] text-center text-xl md:text-3xl font-dela leading-10;
     transform-origin: 50% 100%;
-    transform: translateY(0%) rotateX(20deg);
+    transform: translateZ(0) rotateX(20deg);
   }
 
   .scroll {
-    animation: scroll 40s linear;
+    position: relative;
+    top: 0;
+    animation: scroll 30s linear;
     animation-delay: 2s;
-  }
-
-  @media screen and (max-width: 768px) {
-    .scroll {
-      animation-duration: 30s;
-    }
+    animation-fill-mode: forwards;
   }
 
   .search-input-wrapper {
@@ -45,9 +42,24 @@
 
 @keyframes scroll {
   0% {
-    transform: translateY(0%) rotateX(20deg);
+    top: 0;
+    transform: translateZ(0) rotateX(20deg);
   }
   100% {
-    transform: translateY(-300%) rotateX(20deg);
+    top: -2500px;
+    transform: translateZ(-1000px) rotateX(25deg);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  @keyframes scroll {
+    0% {
+      top: 0;
+      transform: translateZ(0) rotateX(20deg);
+    }
+    100% {
+      top: -2500px;
+      transform: translateZ(-500px) rotateX(25deg);
+    }
   }
 }
