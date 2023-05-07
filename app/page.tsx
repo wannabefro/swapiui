@@ -13,7 +13,7 @@ export default function HomePage() {
       name: film.title,
       url: `/films/${film.url.split("/")[5]}`,
     }));
-  }, [data]);
+  }, [data, error, isLoading]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-4 relative gap-8">

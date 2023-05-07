@@ -40,7 +40,7 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
     return () => {
       observer.unobserve(target);
     };
-  }, [lastContentRef.current, onScrollEnd]);
+  }, [lastContentRef, onScrollEnd]);
 
   useEffect(() => {
     if (!scrollContainerRef.current) {
@@ -58,7 +58,7 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
         onScrollEnd?.();
       });
     };
-  }, [scrollContainerRef.current, onScrollEnd]);
+  }, [scrollContainerRef, onScrollEnd]);
 
   if (!isVisible) {
     return null;
