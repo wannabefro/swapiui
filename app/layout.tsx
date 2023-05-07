@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="font-gothic">
+      <body className="font-gothic bg-black">
         <Stars />
         <Providers>{children}</Providers>
       </body>
