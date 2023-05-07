@@ -11,7 +11,6 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const lastContentRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const scrolledByRef = useRef(0);
 
   useEffect(() => {
     if (!lastContentRef.current) {
@@ -20,19 +19,16 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
 
     const handleIntersect = (entries: IntersectionObserverEntry[]) => {
       const [entry] = entries;
-      if (!entry.isIntersecting) {
-        scrolledByRef.current += 1;
-        if (scrolledByRef.current > 1) {
-          setIsVisible(false);
-          onScrollEnd?.();
-        }
+      if (entry.isIntersecting) {
+        setIsVisible(false);
+        onScrollEnd?.();
       }
     };
 
     const observer = new IntersectionObserver(handleIntersect, {
       root: null,
       rootMargin: "0px",
-      threshold: 0,
+      threshold: 1,
     });
     const target = lastContentRef.current;
     observer.observe(target);
@@ -90,12 +86,10 @@ const TextScroll = ({ film, onScrollEnd }: TextScrollProps) => {
                 Episode {film.episode_id}
               </h2>
               <h3 className="my-8 text-3xl md:text-5xl">{film.title}</h3>
-              <p
-                ref={lastContentRef}
-                className="whitespace-pre-line mx-4 font-gothic tracking-wider"
-              >
+              <p className="whitespace-pre-line mx-4 font-gothic tracking-wider">
                 {film.opening_crawl}
               </p>
+              <div ref={lastContentRef} className="mt-[90vh]" />
             </div>
           )}
         </div>

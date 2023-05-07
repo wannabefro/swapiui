@@ -17,8 +17,14 @@
   }
 
   .scroll {
-    animation: scroll 60s linear;
+    animation: scroll 40s linear;
     animation-delay: 2s;
+  }
+
+  @media screen and (max-width: 768px) {
+    .scroll {
+      animation-duration: 30s;
+    }
   }
 
   .search-input-wrapper {
